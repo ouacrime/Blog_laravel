@@ -28,27 +28,106 @@
 .card img {
     width: 30%;
 }
-.btn-like,
-.btn-dislike {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: all 0.2s ease-in-out;
+/* Styling for the like button */
+.like-btn {
+    border-color: green;
+    color: green;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.5rem;
+}
+.like-btn:hover {
+    background-color: green;
+    color: white;
 }
 
-.btn-like {
-    background-color: #4caf50;
-    border-color: #4caf50;
+/* Styling for the dislike button */
+.dislike-btn {
+    border-color: red;
+    color: red;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.5rem;
+}
+.dislike-btn:hover {
+    background-color: red;
+    color: white;
 }
 
-.btn-dislike {
-    background-color: #f44336;
-    border-color: #f44336;
+/* Styling for the like button */
+.comment-btn {
+    border-color: rgb(93, 0, 136);
+    color: rgb(93, 0, 136);
+    font-size: 0.9rem;
+    padding: 0.2rem 0.5rem;
+}
+.comment-btn:hover {
+    background-color: rgb(93, 0, 136);
+    color: white;
 }
 
-.btn-like:hover,
-.btn-dislike:hover {
-    opacity: 0.8;
+.commentid {
+    display: block;
+}
+
+/*.body {
+    height: 50vh;
+    background: radial-gradient(
+        circle,
+        rgb(255, 255, 255) 70%,
+        rgb(243, 243, 243) 100%
+    );
+
+}*/
+.block {
+    width: 60px;
+    height: 40px;
+    background: white;
+    border-radius: 9px;
+    box-shadow: 0 10px 25px rgba(124, 130, 141, 0.2);
+    cursor: pointer;
+    transition: all 0.25s ease-out;
+    top: 20px;
+    left: 6%;
+    transform: translate(-50%, -50%);
+    position: relative;
+}
+@media (max-width: 575.9px) {
+    .block {
+        width: 300px;
+    }
+}
+.block .heart-icon {
+    user-select: none;
+    position: absolute;
+    left: 20%;
+    top: 53%;
+    transform: translate(-20%, -50%);
+    fill: transparent;
+    transition: transform 0.25s ease-out;
+    transform-origin: 50% 50%;
+}
+
+/* initial state of the like heart button */
+.block .heart-icon .fill-color-shape {
+    fill: transparent;
+}
+.block .heart-icon.isLiked {
+    filter: drop-shadow(0 3px 5px #c44133);
+}
+
+/* "liked" state of the like heart button */
+.block .heart-icon.isLiked .fill-color-shape {
+    transition: fill 0.5s linear;
+    fill: #e74c3c;
+}
+.block .heart-icon:hover {
+    transform: translate(-20%, calc(-50% - 3px)) scale(1.03);
+}
+.block .number-of-likes {
+    font-size: 30px;
+    user-select: none;
+    position: absolute;
+    left: 90%;
+    top: 55%;
+    transform: translate(-80%, -50%);
+    color: #292d34;
 }

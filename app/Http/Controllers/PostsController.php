@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use App\Models\Post;
 use App\Models\like;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
@@ -16,7 +17,9 @@ class PostsController extends Controller
     public function index()
     {
         return view('blog.index')
-        ->with('posts', Post::orderBy('created_at', 'desc')->get());
+        ->with('posts', Post::orderBy('created_at', 'desc')->get())
+        ->with('Comments', Comment::orderBy('created_at', 'desc')->get());
+
 
     }
 

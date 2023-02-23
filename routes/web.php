@@ -3,6 +3,7 @@
 use App\Http\Controllers\PagesContreller;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
@@ -40,7 +41,7 @@ function($id){
 });
 
 
-
+Route::post('/blog/comments',[CommentController::class, 'store']);
 
 
 

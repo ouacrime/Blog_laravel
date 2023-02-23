@@ -13,14 +13,18 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <!-- Scripts -->
-
-
-    <link rel="stylesheet" href="{{asset('frontend/css/styles.css')}}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @stack('scripts')
+    <link rel="stylesheet" href="/frontend/css/styles.css">
+
+
+
+
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav id="main" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -93,5 +97,7 @@
             @include('layouts.footer')
         </div>
     </div>
+
+    <script src="{{ asset('/frontend/js/myjs.js')}}"></script>
 </body>
 </html>
