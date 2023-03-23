@@ -28,39 +28,39 @@
 
 
 
+  <main>
+    <div class="container">
 
-@foreach ($posts as $post)
-  <div class="card mb-3 mx-auto" style="max-width: 750px;">
-    <div class="row g-0">
-      <div class="col-md-8">
-        <div class="card-body d-flex flex-column">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+        <!-- <section class="mb-10 text-center">-->
+                @foreach ($posts as $post)
+                    <div class="col">
+                        <div class="card  h-100">
+                            <img src="images/{{$post ->image_path}}" class="card-img-top" alt="..." style="height: 200px;margin:auto;width:50%;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$post ->title}}</h5>
 
-          <h3 class="card-title">{{$post ->title}}</h3>
-          <p class="card-text">{{$post ->description}}</p>
+                                <p class="card-text">
+                                    {{$post ->description}}
+                                </p>
 
-          <p class="card-text"><small class="text-muted">by {{$post->user->name}}</small></p>
-          <p class="card-text"><small class="text-muted">on {{$post->created_at}}</small></p>
+                                <p class="text-muted">
+                                    <small>Create at: <u>{{$post->created_at}}</u> by
+                                    <a href="" class="text-dark">{{$post->user->name}}</a></small>
+                                </p>
 
-
-          <div>
-              <a style="width: 91px;background: #148b3e;" class="btn btn-primary" href="/profile/{{$post->slug}}/edit" role="button">Edit</a>
-          </div>
-          <form action="/profile/{{$post->slug}}" method="post">@csrf
-            @method('delete')
-                <button style=" width: 91px;" type="submit" class="btn btn-danger"  role="button">Delete</a>
-          </form>
-
-
+                                <a href="/profile/{{$post->slug}}/edit" class="btn btn-primary btn-rounded" style="width: 70px;">Edit--</a>
+                                <form action="/profile/{{$post->slug}}" method="post">@csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger" data-mdb-color="dark" role="button">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
         </div>
-      </div>
-      <div class="col-md-4">
-
-        <img style="width: 100%;" src="images/{{$post ->image_path}}" class="img-fluid rounded-start" alt="images">
-      </div>
     </div>
-  </div>
-@endforeach
-  </div>
+  </main>
 
 
 

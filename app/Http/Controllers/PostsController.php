@@ -73,23 +73,25 @@ class PostsController extends Controller
     }
     public function like(Post $post,$id)
     {
-        $alreadyLiked = Like::where('post_id', $id)->where('user_id', Auth::id())->exists();
+        if (Auth::check())
+        {
+            $alreadyLiked = Like::where('post_id', $id)->where('user_id', Auth::id())->exists();
 
-        if ($alreadyLiked == false && $post->count == 0) {
-        $post_id = $id;
-        $user_id = Auth::user()->id;
-        $like = new like();
-        $post = Post::find($id);
-        $post->increment('count');
-        $like->post_id = $post_id;
-        $like->user_id = $user_id;
-        $like->like = 1;
-        $like->save();
-        return back()->with('like','You liked this post');
+            if ($alreadyLiked == false && $post->count == 0) {
+            $post_id = $id;
+            $user_id = Auth::user()->id;
+            $like = new like();
+            $post = Post::find($id);
+            $post->increment('count');
+            $like->post_id = $post_id;
+            $like->user_id = $user_id;
+            $like->like = 1;
+            $like->save();
+            return back()->with('like','You liked this post');
+            }
+            else{return back()->with('like','You liked this post alerady');}
         }
-        else{
-        return back()->with('like','You liked this post alerady');
-        }
+        else {return back()->with('like', 'Please login first.');}
 
     }
 

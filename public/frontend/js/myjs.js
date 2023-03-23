@@ -1,14 +1,14 @@
-/*function hideComment(id) {
-    var commentSection = document.getElementById("comment-section" + id);
-    if (commentSection.style.display === "none") {
-        commentSection.style.display = "block";
-    } else {
-        commentSection.style.display = "none";
-    }
-}*/
-
 function hideComment(id) {
-    $("#comment-section" + id).toggle();
+    const commentBtn = document.getElementsByClassName("cme-"+id)[0];
+    let iscommentclick = commentBtn.classList.contains("cm");
+    if(!iscommentclick){
+        commentBtn.classList.add("cm");
+        $("#comment-section" + id).toggle();
+    }
+    else{
+        commentBtn.classList.remove("cm");
+        $("#comment-section" + id).toggle();
+    }
 }
 
 //function do requesting
@@ -40,5 +40,13 @@ function heart(idpost) {
         likeBtn.classList.remove("isLiked");
         request("/blog/Disliked/", idpost);
     }
+    location.reload();
+}
+
+
+function confirm(idpost) {
+
+        request("/admin/accepted/", idpost);
+
     location.reload();
 }

@@ -3,13 +3,14 @@
 
 @section('content')
 
-@if (session()->has('success') || session()->has('like') || session()->has('message'))
+@if (session()->has('success') || session()->has('like') || session()->has('message') || session()->has('loginee'))
 <div class="alert alert-success" role="alert">
 
     <div class="text-center">
         {{session()->get('success')}}
         {{session()->get('like')}}
         {{session()->get('message')}}
+        {{session()->get('login')}}
         </div>
   </div>
 @endif
@@ -30,6 +31,7 @@
 
 
 @foreach ($posts as $post)
+    @if ($post->confirmed)
 
     <div class="card mb-3 mx-auto" style="max-width: 750px; margin-bottom: 0px !important;">
         <div class="row g-0">
@@ -39,22 +41,22 @@
                 <h3 class="card-title">{{$post ->title}}</h3>
                 <p class="card-text">{{$post ->description}}</p>
 
-                <p class="card-text"><small class="text-muted">by {{$post->user->name}}</small></p>
-                <p class="card-text"><small class="text-muted">on {{$post->created_at}}</small></p>
+                <p class="card-text"><small class="text-muted">by: {{$post->user->name}}</small></p>
+                <p class="card-text"><small class="text-muted">posted at: {{$post->created_at}}</small></p>
                 <div class="mt-auto">
                     <a class="btn btn-primary" href="/blog/{{$post ->slug}}" role="button">read more</a>
                 </div>
-            @if (Auth::user())
+            <!--if(Auth::user())-->
                 <!-- Like Button -->
                 <div class="d-flex align-items-center" style="padding-top: 10px">
                 <!--like button-->
                     <div class="block" onclick="heart({{$post->id}})" >
                             <!-- heart shape SVG -->
                             <svg
-                            @if(DB::table('likes')->where('post_id', $post->id)->where('user_id', Auth::id())->exists() == true )
+                            @if(DB::table('likes')->where('post_id', $post->id)->where('user_id', Auth::id())->exists() == true  )
                                 class="heart-icon heart-{{$post->id}} isLiked"
                             @endif
-                            @if(DB::table('likes')->where('post_id', $post->id)->where('user_id', Auth::id())->exists() == false )
+                            @if(DB::table('likes')->where('post_id', $post->id)->where('user_id', Auth::id())->exists() == false  )
                                 class="heart-icon heart-{{$post->id}} "
                             @endif
 
@@ -88,15 +90,15 @@
 
 
                         <button onclick="hideComment({{$post->id}})"
-                            class="btn btn-outline-secondary btn-sm comment-btn"
+                            class="btn btn-outline-secondary btn-sm comment-btn cme-{{$post->id}}"
                             style="margin-left: 10px;">
                             <i class="bi bi-hand-thumbs-up"></i>
                             <!--a href="#"  style="text-decoration: none; color: rgb(93, 0, 136);"-->
-                                 <span>comment{{$post->id}}</span>
+                                 <span>comment</span>
                             <!--/a-->
                         </button>
                 </div>
-            @endif
+            <!--endif-->
 
                 </div>
             </div>
@@ -123,13 +125,15 @@
                 <input type="text" id="addANote"  name="Comment_Profil" class="form-control" placeholder="Type comment..." />
                 <label class="form-label" for="addANote">+ Add a note</label>
                 <div class="float-end mt-2 pt-1">
+
                   <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
                   <button type="button" class="btn btn-outline-primary btn-sm" >Cancel</button>
+
                 </div>
               </div>
             </form>
             @foreach ($Comments as $comment)
-                 @if(DB::table('comments')->where('post_id', $post->id)->exists() == true )
+                 @if( $comment->post_id == $post->id)
 
                     <div class="card mb-4">
                         <div class="card-body">
@@ -139,9 +143,11 @@
                             <p class="small mb-0 ms-2"></p>
                             </div>
                             <div class="d-flex flex-row align-items-center">
-                            <p class="small text-muted mb-0">Upvote?</p>
+                            <p class="small text-muted mb-0">
+                                {{DB::table('users')->where('id', $comment->user_id)->pluck('name')->first();}}
+                            </p>
                             <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
-                            <p class="small text-muted mb-0">3</p>
+                            <p class="small text-muted mb-0"></p>
                             </div>
                         </div>
                         <div class="small d-flex justify-content-start">
@@ -160,7 +166,7 @@
         </div>
       </div>
     <!--end comment-->
-
+    @endif
     @endforeach
 
 
@@ -175,5 +181,5 @@
 
 @endsection
 @push('scripts')
-    <script src="/frontend/js/myjs.css"></script>
+    <script src="/frontend/js/myjs.js"></script>
 @endpush

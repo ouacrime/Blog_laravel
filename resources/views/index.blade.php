@@ -25,7 +25,6 @@
         </div>
 @endforeach
 <div class="d-flex justify-content-center mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
-<p id='on'>holllla</p>
 </div>
 
 @endsection

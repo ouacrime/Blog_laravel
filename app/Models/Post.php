@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
 
     protected $fillibale = [
-        'title','slug','description','image_path','user_id'
+        'title','slug','description','image_path','user_id','confirmed'
     ];
 
 

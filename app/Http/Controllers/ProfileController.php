@@ -18,10 +18,13 @@ class ProfileController extends Controller
     public function index()
     {
 
-        $post = Auth::user()->id ;
-        $posts = Post::where('user_id', $post)->get();
+        $user_id = Auth::user()->id ;
+        $posts = Post::where('user_id', $user_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('profile.index')
+        ->with('posts', $posts);
 
-        return view('profile.index')->with('posts', Post::orderBy('created_at', 'desc')->get());
     }
 
     /**
